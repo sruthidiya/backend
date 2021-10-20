@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="trainingDBModelStoreContainer" CdmEntityContainer="trainingDBEntities">
+    <EntitySetMapping Name="Protables">
+      <EntityTypeMapping TypeName="trainingDBModel.Protable">
+        <MappingFragment StoreEntitySet="Protable">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductImgId" ColumnName="ProductImgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="trainingDBModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="CProductId" ColumnName="CProductId" />
+          <ScalarProperty Name="CProductName" ColumnName="CProductName" />
+          <ScalarProperty Name="CProductDescription" ColumnName="CProductDescription" />
+          <ScalarProperty Name="CProductPrice" ColumnName="CProductPrice" />
+          <ScalarProperty Name="CProductImgId" ColumnName="CProductImgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

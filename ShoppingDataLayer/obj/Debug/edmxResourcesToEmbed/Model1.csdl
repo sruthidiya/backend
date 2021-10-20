@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="trainingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Protable">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductPrice" Type="Double" />
+    <Property Name="ProductImgId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_Protable" FromRole="Protable" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CProductId" />
+    </Key>
+    <Property Name="CProductId" Type="Int32" Nullable="false" />
+    <Property Name="CProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CProductDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CProductPrice" Type="Double" />
+    <Property Name="CProductImgId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Protable" Relationship="Self.FK_Cart_Protable" FromRole="Cart" ToRole="Protable" />
+  </EntityType>
+  <Association Name="FK_Cart_Protable">
+    <End Role="Protable" Type="Self.Protable" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Protable">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="trainingDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Protables" EntityType="Self.Protable" />
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
+    <AssociationSet Name="FK_Cart_Protable" Association="Self.FK_Cart_Protable">
+      <End Role="Protable" EntitySet="Protables" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

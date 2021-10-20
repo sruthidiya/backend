@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="trainingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'trainingDB.dbo.Cart' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CProductId" />
+    </Key>
+    <Property Name="CProductId" Type="int" Nullable="false" />
+    <Property Name="CProductName" Type="varchar" MaxLength="50" />
+    <Property Name="CProductDescription" Type="varchar" MaxLength="50" />
+    <Property Name="CProductPrice" Type="float" />
+    <Property Name="CProductImgId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Protable">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="50" />
+    <Property Name="ProductDescription" Type="varchar" MaxLength="50" />
+    <Property Name="ProductPrice" Type="float" />
+    <Property Name="ProductImgId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Cart_Protable">
+    <End Role="Protable" Type="Self.Protable" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Protable">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="trainingDBModelStoreContainer">
+    <EntitySet Name="Protable" EntityType="Self.Protable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Cart].[CProductId] AS [CProductId], 
+    [Cart].[CProductName] AS [CProductName], 
+    [Cart].[CProductDescription] AS [CProductDescription], 
+    [Cart].[CProductPrice] AS [CProductPrice], 
+    [Cart].[CProductImgId] AS [CProductImgId]
+    FROM [dbo].[Cart] AS [Cart]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Cart_Protable" Association="Self.FK_Cart_Protable">
+      <End Role="Protable" EntitySet="Protable" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
